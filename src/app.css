@@ -1,0 +1,262 @@
+.main-wrapper {
+  min-height: 100vh;
+  background-color: rgb(182, 182, 182);
+  background-image: url("./wallpapers/wallpaper1.jpg");
+  background-size: cover;
+}
+
+.app {
+  min-height: 100vh;
+}
+.otherComponent {
+  padding-top: 20px;
+}
+.todoinput-container {
+  text-align: center;
+  padding-bottom: 15px;
+}
+.todoinput {
+  margin: 0 auto;
+  border: hidden;
+  font-family: Arial;
+  font-size: 15px;
+  height: 45px;
+  width: 95%;
+  background-color: #668964;
+  color: white;
+  text-indent: 50px;
+  opacity: 0.8;
+}
+.todoinput:focus {
+  background-color: white;
+  color: black;
+  opacity: 0.8;
+}
+
+.todoinput:hover:not(:focus) {
+  background-color: #668964;
+  color: white;
+  opacity: 1;
+}
+
+.todolist {
+  align-items: center;
+  margin: 1px auto;
+  height: 45px;
+  width: 95%;
+  background-color: white;
+  font-family: Arial;
+  display: grid;
+  grid-template-columns: 50px auto 50px;
+}
+.todolist:hover {
+  background-color: #e5f3ff;
+}
+
+.star {
+  padding-right: 20px;
+  width: 20px;
+  height: 40%;
+}
+.Buttoncss {
+  color: white;
+  padding: 4px 14px 4px 14px;
+  margin: 20px auto;
+  background-color: #668964;
+  border: none;
+  font-size: 13px;
+  text-align: center;
+}
+.Buttoncss:hover {
+  color: white;
+  background-color: #567054;
+}
+
+.todolist {
+  position: relative;
+  animation: animatebottom 0.4s;
+}
+@keyframes animatebottom {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+.icons {
+  max-width: 20px;
+  padding: 15px;
+  z-index: -1;
+}
+.icons-div:hover {
+  background-color: #5c7c5a;
+}
+
+.functions-div-open {
+  height: 100vh;
+  width: 350px;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  background-color: white;
+  overflow-y: hidden;
+  opacity: 0.9;
+  transition: 0.5s;
+}
+@media screen and (max-width: 350px) {
+  .functions-div-open {
+    width: 100%;
+  }
+  .delete-popup {
+    width: 100%;
+  }
+}
+.comment-box {
+  border: 1px solid #a3a3a3;
+  width: 90%;
+  height: 30px;
+  text-indent: 10px;
+  opacity: 1;
+}
+.comment-container {
+  position: absolute;
+  bottom: 0;
+  margin: 0 auto;
+  width: 100%;
+  /* padding-bottom: 20px; */
+}
+.comment-body {
+  margin: 10px 5px;
+
+  padding: 25px 15px;
+}
+.back-arrow {
+  opacity: 0.7;
+  /* padding-left: 15px; */
+}
+.bottom-most-container {
+  padding: 10px 17px;
+  font-size: 12px;
+
+  display: grid;
+  grid-template-columns: auto auto auto;
+  text-align: center;
+  color: #999999;
+}
+.delete-icon {
+  text-align: right;
+  float: right;
+}
+.contextMenu {
+  position: fixed;
+  background: white;
+  box-shadow: 0px 2px 10px #999999;
+  z-index: 10000;
+}
+.delete-popup-container {
+  position: fixed;
+  z-index: 100000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.delete-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  /* border: 2px solid rgb(187, 187, 187); */
+  background-color: white;
+  color: black;
+  text-align: right;
+  box-shadow: 0 0 5px 2px rgb(170, 170, 170);
+}
+.delete-message {
+  padding: 15px 10px 5px 20px;
+  text-align: left;
+}
+.button {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 50px 10px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 20px 10px 0px;
+  cursor: pointer;
+  opacity: 1;
+}
+.cancel {
+  background-color: #e7e7e7;
+  color: black;
+}
+#buttons {
+  background-color: yellow;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  overflow: hidden;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  left: -200%;
+  position: relative;
+  animation: animatetop 0.5s;
+}
+
+@keyframes animatetop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Links inside the dropdown */
+.dropdown-content .abutton {
+  width: 100%;
+  color: black;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  font-size: 15px;
+  border: none;
+  margin: 0 auto;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content .abutton:hover {
+  background-color: #c5c5c5;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+.forgotPassword:hover {
+  cursor: pointer;
+  color: red;
+}
