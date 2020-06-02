@@ -1,7 +1,5 @@
 .main-wrapper {
   min-height: 100vh;
-  background-color: rgb(182, 182, 182);
-  background-image: url("./wallpapers/wallpaper1.jpg");
   background-size: cover;
 }
 
@@ -28,7 +26,7 @@
   opacity: 0.8;
 }
 .todoinput:focus {
-  background-color: white;
+  background-color: skyblue;
   color: black;
   opacity: 0.8;
 }
@@ -41,16 +39,16 @@
 
 .todolist {
   align-items: center;
-  margin: 1px auto;
+  margin: 3px auto;
   height: 45px;
-  width: 95%;
-  background-color: white;
-  font-family: Arial;
+  width: 90%;
+  background-color: rgb(224, 224, 224);
+  font-family: roboto;
   display: grid;
   grid-template-columns: 50px auto 50px;
 }
 .todolist:hover {
-  background-color: #e5f3ff;
+  background-color: #b1d9fc;
 }
 
 .star {
@@ -90,11 +88,12 @@
   max-width: 20px;
   padding: 15px;
   z-index: -1;
-}
-.icons-div:hover {
-  background-color: #5c7c5a;
+  color: white;
 }
 
+.icons:hover {
+  background-color: #567054;
+}
 .functions-div-open {
   height: 100vh;
   width: 350px;
@@ -159,10 +158,11 @@
 }
 .delete-popup-container {
   position: fixed;
-  z-index: 100000;
+  z-index: 100;
   top: 0;
   left: 0;
   width: 100%;
+
   height: 100%;
 }
 .delete-popup {
@@ -170,7 +170,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
+  border-radius: 10px;
+  /* width: 50%; */
   /* border: 2px solid rgb(187, 187, 187); */
   background-color: white;
   color: black;
@@ -179,26 +180,23 @@
 }
 .delete-message {
   padding: 15px 10px 5px 20px;
-  text-align: left;
+  text-align: center;
 }
 .button {
-  background-color: #4caf50; /* Green */
+  background-color: #e7e7e7; /* Green */
   border: none;
   color: white;
-  padding: 10px 50px 10px 50px;
+  padding: 10px 20px 10px 20px;
   text-align: center;
   display: inline-block;
   font-size: 16px;
-  margin: 10px 20px 10px 0px;
+  margin: 0px 10px 0px 20px;
   cursor: pointer;
-  opacity: 1;
+  text-align: center;
 }
 .cancel {
-  background-color: #e7e7e7;
   color: black;
-}
-#buttons {
-  background-color: yellow;
+  border-radius: 30px;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -256,7 +254,62 @@
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+
+.signup:hover,
 .forgotPassword:hover {
   cursor: pointer;
-  color: red;
+  text-decoration: underline;
+}
+.signup,
+.forgotPassword {
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
+}
+
+.inputcss {
+  height: 45px;
+  width: 400px;
+  font-family: Arial;
+  font-size: 20px;
+  border-radius: 30px;
+  border: 0px;
+  margin: 5px 0px 5px 0px;
+  text-indent: 50px;
+  background-color: #dddddd;
+}
+.buttoncss {
+  height: 45px;
+  width: 400px;
+  font-family: Arial;
+  font-size: 20px;
+  border-radius: 30px;
+  border: 0px;
+  margin: 15px 0px 5px 0px;
+  text-align: center;
+  background-color: black;
+  color: white;
+}
+.buttoncss:hover {
+  cursor: pointer;
+}
+.logocss {
+  width: "200px";
+}
+.warning {
+  color: rgb(248, 108, 108);
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+.topBar {
+  font-family: Arial;
+  font-size: 20px;
+  font-style: normal;
+  color: black;
+  background-color: black;
+  display: grid;
+  grid-template-columns: auto 50px 50px 30px;
+  height: 55px;
+  z-index: -1;
 }

@@ -16,35 +16,40 @@ export default class sideFunctions extends Component {
       comment: this.props.data.comment,
       starred: this.props.data.starred,
       deletepopup: false,
-      email: this.props.username.replace("dot", ".")
+      email: this.props.username.replace("dot", "."),
     };
-    this.handleChange = this.handleChange.bind(this);
+
     this.handleComment = this.handleComment.bind(this);
     this.handleSubmitComment = this.handleSubmitComment.bind(this);
     this.todoListChanger = this.todoListChanger.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+
     this.deleteFunction = this.deleteFunction.bind(this);
     this.deleteFunctionExecute = this.deleteFunctionExecute.bind(this);
   }
-  handleSubmit() {
+  handleSubmit = () => {
     this.props.changetodo(this.state.inputValue, this.props.data.id);
-  }
-  handleChange(e) {
+  };
+  handleChange = (e) => {
     e.preventDefault();
-    this.setState({
-      inputValue: e.target.value
-    });
-  }
+    this.setState(
+      {
+        inputValue: e.target.value,
+      },
+      () => {
+        this.props.changetodo(this.state.inputValue, this.props.data.id);
+      }
+    );
+  };
   todoListChanger(change) {
     if (change === "checked") {
       if (this.state.check === "") {
         var value = this.props.data.DefaultChecked;
         this.setState({
-          check: !value
+          check: !value,
         });
       } else {
-        this.setState(prevState => ({
-          check: !prevState.check
+        this.setState((prevState) => ({
+          check: !prevState.check,
         }));
       }
       this.props.todoListChanger(this.props.data.id, this.state.check);
@@ -53,27 +58,32 @@ export default class sideFunctions extends Component {
       if (this.state.check === "") {
         value = this.props.data.starred;
         this.setState({
-          starred: !value
+          starred: !value,
         });
       } else {
-        this.setState(prevState => ({
-          starred: !prevState.starred
+        this.setState((prevState) => ({
+          starred: !prevState.starred,
         }));
       }
       this.props.starredFunction(this.props.data.id, this.state.starred);
     }
   }
   handleComment(e) {
-    this.setState({
-      comment: e.target.value
-    });
+    this.setState(
+      {
+        comment: e.target.value,
+      },
+      () => {
+        this.props.todoCommentChanger(this.props.data.id, this.state.comment);
+      }
+    );
   }
   handleSubmitComment() {
     this.props.todoCommentChanger(this.props.data.id, this.state.comment);
   }
   deleteFunction() {
     this.setState({
-      deletepopup: true
+      deletepopup: true,
     });
   }
   deleteFunctionExecute(value) {
@@ -83,7 +93,7 @@ export default class sideFunctions extends Component {
     }
 
     this.setState({
-      deletepopup: false
+      deletepopup: false,
     });
   }
 
@@ -94,7 +104,7 @@ export default class sideFunctions extends Component {
           className="todolist"
           style={{
             padding: "20px 0px 10px 0px",
-            borderBottom: "1px solid #f0f0f0"
+            borderBottom: "1px solid #f0f0f0",
           }}
         >
           <input
@@ -104,25 +114,19 @@ export default class sideFunctions extends Component {
               this.todoListChanger("checked");
             }}
           />
-          <div>
-            <form
-              onSubmit={() => {
-                this.handleSubmit(this.state.inputValue, this.props.data.id);
-              }}
-            >
-              <input
-                type="text"
-                value={this.state.inputValue}
-                style={{
-                  width: "90%",
-                  height: "30px",
-                  border: "none",
-                  fontSize: "15px"
-                }}
-                onChange={this.handleChange}
-              />
-            </form>
-          </div>
+
+          <input
+            type="text"
+            value={this.state.inputValue}
+            style={{
+              width: "90%",
+              height: "30px",
+              border: "none",
+              fontSize: "15px",
+            }}
+            onChange={this.handleChange}
+          />
+
           <img
             src={this.state.starred ? starred : star}
             alt="star"
@@ -140,17 +144,14 @@ export default class sideFunctions extends Component {
           <label style={{ paddingLeft: "10px" }}>{this.state.comment}</label>
         </div>
         <div className="comment-container">
-          <form
-            onSubmit={this.handleSubmitComment}
-            style={{ textAlign: "center" }}
-          >
-            <input
-              type="text"
-              className="comment-box"
-              placeholder="Add a comment"
-              onChange={this.handleComment}
-            />
-          </form>
+          <input
+            type="text"
+            className="comment-box"
+            placeholder="Add a comment"
+            value={this.state.comment}
+            onChange={this.handleComment}
+          />
+
           <div className="bottom-most-container">
             <img
               src={backicon}

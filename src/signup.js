@@ -1,87 +1,68 @@
 import React, { Component } from "react";
 import "../src/app.css";
+import mylogo from "./wallpapers/mylogo.png";
 const formcss = {
-  textAlign: "center"
+  paddingTop: "10%",
+  textAlign: "center",
 };
-const inputcss = {
-  height: "30px",
-  width: "250px",
-  fontFamily: "Arial",
-  fontSize: "20px",
-  borderRadius: "5px",
-  border: "1px solid black",
-  padding: "5px",
-  margin: "10px"
+const logocss = {
+  width: "200px",
 };
 export default class signup extends Component {
   constructor() {
     super();
     this.state = {
       email: "",
-      password: ""
+      password: "",
     };
   }
-  loginValues = e => {
+  loginValues = (e) => {
     e.preventDefault();
     this.props.signup(this.state.email, this.state.password);
   };
 
   render() {
     return (
-      <div style={formcss} className="main-wrapper">
-        <form onSubmit={this.loginValues}>
-          <input
-            style={inputcss}
-            type="email"
-            placeholder="Email"
-            onChange={e => {
-              this.setState({ email: e.target.value });
-            }}
-            required
-          />
-          <br />
-          <input
-            style={inputcss}
-            type="password"
-            placeholder="Password"
-            onChange={e => {
-              this.setState({ password: e.target.value });
-            }}
-            required
-          />
+      <div className="main-wrapper">
+        <div style={formcss}>
+          <div>
+            <img src={mylogo} alt="logo" style={logocss} />
+          </div>
+          <form onSubmit={this.loginValues}>
+            <input
+              className="inputcss"
+              type="email"
+              placeholder="Email"
+              onChange={(e) => {
+                this.setState({ email: e.target.value });
+              }}
+              required
+            />
+            <br />
+            <input
+              className="inputcss"
+              type="password"
+              placeholder="Password"
+              onChange={(e) => {
+                this.setState({ password: e.target.value });
+              }}
+              required
+            />
 
-          <br />
-          <input
-            type="submit"
-            value="Signup"
-            className="Buttoncss "
-            style={{
-              width: "100px",
-              height: "35px",
-              fontSize: "20px",
-              padding: "5px",
-              borderRadius: "2px"
-            }}
-          />
-          <br />
-          <button
+            <br />
+            <input type="submit" value="Signup" className="buttoncss" />
+          </form>
+          <span
+            style={{ cursor: "pointer" }}
             onClick={() => {
               this.props.newUser(false);
             }}
-            className="Buttoncss "
-            style={{
-              width: "100px",
-              height: "35px",
-              fontSize: "20px",
-              padding: "5px",
-              borderRadius: "2px"
-            }}
           >
-            LogIn
-          </button>
+            Login
+          </span>
           <br />
-          {this.props.warning}
-        </form>
+          <div className="warning">{this.props.warning}</div>
+        </div>
       </div>
     );
   }

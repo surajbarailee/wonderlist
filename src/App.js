@@ -35,13 +35,13 @@ class App extends React.Component {
       verified: true,
       error: "",
       forgotPassword: false,
-      forgotemail: ""
+      forgotemail: "",
     };
   }
 
   componentDidMount() {
     this.app = firebase.initializeApp(DB_CONFIG);
-    this.app.auth().onAuthStateChanged(user => {
+    this.app.auth().onAuthStateChanged((user) => {
       if (user) {
         var path = user.email.replace(".", "dot");
         this.setState(
@@ -52,52 +52,51 @@ class App extends React.Component {
               .ref()
               .child(`wonderlist/${this.state.email}/`);
             var previousState = this.state.list;
-            this.db.on("child_added", snap => {
-              if (snap.exists()) {
-                this.setState({
-                  todoExists: true
-                });
-              }
+            this.db.on("child_added", (snap) => {
               previousState.push({
                 id: snap.key,
                 body: snap.val().body,
                 comment: snap.val().comment,
                 checked: snap.val().checked,
                 date: snap.val().date,
-                starred: snap.val().starred
+                starred: snap.val().starred,
               });
               this.setState({
-                list: previousState
+                list: previousState,
               });
             });
-            this.db.on("child_changed", snap => {
+            this.db.on("child_changed", (snap) => {
               var objIndex;
               if (this.state.changed === "checked") {
-                objIndex = previousState.findIndex(obj => obj.id === snap.key);
+                objIndex = previousState.findIndex(
+                  (obj) => obj.id === snap.key
+                );
                 previousState[objIndex].checked = !previousState[objIndex]
                   .checked;
                 this.setState({
                   list: previousState,
-                  changed: ""
+                  changed: "",
                 });
               }
               if (this.state.changed === "starred") {
-                objIndex = previousState.findIndex(obj => obj.id === snap.key);
+                objIndex = previousState.findIndex(
+                  (obj) => obj.id === snap.key
+                );
                 previousState[objIndex].starred = !previousState[objIndex]
                   .starred;
                 this.setState({
                   list: previousState,
-                  changed: ""
+                  changed: "",
                 });
               }
             });
-            this.db.on("child_removed", snap => {
-              var filtered = this.state.list.filter(function(el) {
+            this.db.on("child_removed", (snap) => {
+              var filtered = this.state.list.filter(function (el) {
                 return el.id !== snap.key;
               });
 
               this.setState({
-                list: filtered
+                list: filtered,
               });
             });
           }
@@ -108,23 +107,38 @@ class App extends React.Component {
     });
   }
   newUser = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       newUser: !prevState.newUser,
-      error: ""
+      error: "",
     }));
   };
-  deleteFunction = id => {
+  deleteFunction = (id) => {
     var database = firebase.database();
     database.ref(`wonderlist/${this.state.email}/${id}`).remove();
   };
   hideToDo = () => {
-    this.setState(prevState => ({
-      hidedata: !prevState.hidedata
+    this.setState((prevState) => ({
+      hidedata: !prevState.hidedata,
     }));
   };
   todoCommentChanger = (id, comment) => {
     var database = firebase.database();
-    database.ref(`wonderlist/${this.state.email}/${id}`).update({ comment });
+
+    database
+      .ref(`wonderlist/${this.state.email}/${id}`)
+      .update({ comment }, () => {
+        var newlist = this.state.list;
+        var i;
+        for (i = 0; i < newlist.length; i++) {
+          if (id === this.state.list[i].id) {
+            newlist[i].comment = comment;
+            break;
+          }
+        }
+        this.setState({
+          list: [...newlist],
+        });
+      });
   };
   counterFunction = () => {
     var count = this.state.list.reduce(
@@ -135,7 +149,20 @@ class App extends React.Component {
     return count;
   };
 
-  showFunctionBar = (id, value, comment, DefaultChecked, date, starred) => {
+  showFunctionBar = (id) => {
+    var i;
+    var value, comment, DefaultChecked, date, starred;
+    var newlist = this.state.list;
+    for (i = 0; i < newlist.length; i++) {
+      if (id === this.state.list[i].id) {
+        value = this.state.list[i].body;
+        comment = this.state.list[i].comment;
+        DefaultChecked = this.state.list[i].DefaultChecked;
+        date = this.state.list[i].date;
+        starred = this.state.list[i].starred;
+        break;
+      }
+    }
     this.setState(
       {
         functionopen: false,
@@ -145,8 +172,8 @@ class App extends React.Component {
           comment: comment,
           DefaultChecked: DefaultChecked,
           date: date,
-          starred: starred
-        }
+          starred: starred,
+        },
       },
       () => {
         this.setState({ functionopen: true });
@@ -154,13 +181,26 @@ class App extends React.Component {
     );
   };
   changetodo = (newtodo, id1) => {
+    var i;
+    var newlist = this.state.list;
+    for (i = 0; i < newlist.length; i++) {
+      if (id1 === this.state.list[i].id) {
+        console.log("found");
+        newlist[i].body = newtodo;
+        break;
+      }
+    }
+    this.setState({
+      list: [...newlist],
+    });
+
     var database = firebase.database();
     database.ref(`wonderlist/${this.state.email}/${id1}/body`).set(newtodo);
   };
   todoListChanger = (id1, status) => {
     this.setState(
       {
-        changed: "checked"
+        changed: "checked",
       },
       () => {
         if (!status) {
@@ -178,7 +218,7 @@ class App extends React.Component {
   starredFunction = (idStar, statusStar) => {
     this.setState(
       {
-        changed: "starred"
+        changed: "starred",
       },
       () => {
         if (!statusStar) {
@@ -194,12 +234,12 @@ class App extends React.Component {
     );
   };
   forgotPassword = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       forgotPassword: !prevState.forgotPassword,
-      error: ""
+      error: "",
     }));
   };
-  addList = holder => {
+  addList = (holder) => {
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
@@ -222,13 +262,13 @@ class App extends React.Component {
         comment: "Nothing",
         checked: false,
         date: today,
-        starred: false
+        starred: false,
       });
   };
   openCloseFunction = () => {
     this.setState({ functionopen: false });
   };
-  resetPassword = emailAddress => {
+  resetPassword = (emailAddress) => {
     var auth = firebase.auth();
 
     auth
@@ -236,10 +276,10 @@ class App extends React.Component {
       .then(() => {
         this.setState({
           error: "Reset Email sent Successfully",
-          forgotemail: ""
+          forgotemail: "",
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error: error.message });
       });
   };
@@ -247,7 +287,7 @@ class App extends React.Component {
     this.app
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error: error.message });
       });
   };
@@ -255,7 +295,7 @@ class App extends React.Component {
     this.app
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error: error.message });
       });
   };
@@ -265,10 +305,10 @@ class App extends React.Component {
       .signOut()
       .then(() => {
         this.setState({
-          email: ""
+          email: "",
         });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("could not signout for some reason", error.message);
       });
   };
@@ -278,19 +318,25 @@ class App extends React.Component {
     if (!user.emailVerified) {
       user
         .sendEmailVerification()
-        .then(function() {
-          this.setState({ error: "message sent" });
+        .then(() => {
+          this.setState({
+            error: "message sent",
+            newUser: false,
+            forgotPassword: false,
+            user: null,
+          });
         })
-        .catch(function(error) {
+        .catch((error) => {
+          console.log("not found");
           this.setState({ error: error.message });
         });
     } else {
       this.setState({
-        error: "seems the email trying to be used has already registered"
+        error: "seems the email trying to be used has already registered",
       });
     }
   };
-  orderFunction = orderType => {
+  orderFunction = (orderType) => {
     if (orderType === "alphabet") {
       function compareValues(key, order = "asc") {
         return function innerSort(a, b) {
@@ -314,11 +360,11 @@ class App extends React.Component {
       }
       var newlist = this.state.list.sort(compareValues("body", "asc"));
       this.setState({
-        list: newlist
+        list: newlist,
       });
     } else {
       var templist = [];
-      this.state.list.map(list => {
+      this.state.list.map((list) => {
         if (list.starred) {
           templist.splice(0, 0, list);
           return null;
@@ -329,7 +375,7 @@ class App extends React.Component {
       });
 
       this.setState({
-        list: templist
+        list: templist,
       });
     }
   };
@@ -383,7 +429,7 @@ class App extends React.Component {
                     <Loading />
                   ) : (
                     <div className="otherComponent">
-                      {this.state.list.map(todos => {
+                      {this.state.list.map((todos) => {
                         if (!todos.checked) {
                           return (
                             <TodoList
@@ -409,7 +455,7 @@ class App extends React.Component {
                         hideToDo={this.hideToDo}
                       />
 
-                      {this.state.list.map(todos => {
+                      {this.state.list.map((todos) => {
                         if (todos.checked && !this.state.hidedata) {
                           return (
                             <TodoList

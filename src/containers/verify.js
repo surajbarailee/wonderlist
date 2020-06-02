@@ -5,7 +5,7 @@ const notverified = {
   border: "1px solid black",
   backgroundColor: "white",
   opacity: "0.7",
-  padding: "5px"
+  padding: "5px",
 };
 const button = {
   backgroundColor: "#4CAF50" /* Green */,
@@ -17,7 +17,7 @@ const button = {
   display: "inline-block",
   fontSize: "16px",
   margin: "4px 2px",
-  cursor: "pointer"
+  cursor: "pointer",
 };
 export default function verify(props) {
   return (
@@ -30,7 +30,7 @@ export default function verify(props) {
           Verify
         </button>
         <br />
-        {this.props.warning}
+        {props.warning}
       </div>
     </div>
   );

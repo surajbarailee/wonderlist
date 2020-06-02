@@ -5,7 +5,7 @@ export default class forgotPassword extends Component {
   constructor() {
     super();
     this.state = {
-      email: ""
+      email: "",
     };
   }
   render() {
@@ -18,14 +18,16 @@ export default class forgotPassword extends Component {
             <input
               type="email"
               required
-              style={{ width: "90%", height: "30px", fontSize: "20px" }}
+              className="inputcss"
+              style={{ border: "1px solid black" }}
               value={this.state.email}
-              onChange={e => {
+              placeholder="Email"
+              onChange={(e) => {
                 this.setState({ email: e.target.value });
               }}
             />
           </div>
-          <div className="buttons">
+          <div>
             <input
               type="button"
               value="Cancel"
@@ -35,13 +37,18 @@ export default class forgotPassword extends Component {
             <input
               type="button"
               value="ResetPassword"
-              className="button"
+              className="buttoncss"
+              style={{ width: "300px", marginRight: "15px" }}
               onClick={() => {
                 this.props.resetPassword(this.state.email);
               }}
             />
-            <br />
-            {this.props.error}
+
+            <div
+              style={{ textAlign: "center", margin: "5px", fontSize: "20px" }}
+            >
+              {this.props.error}
+            </div>
           </div>
         </div>
       </div>

@@ -1,33 +1,27 @@
 import React, { Component } from "react";
-import icon1 from "../others/sort.svg";
-import logout from "../others/logout.svg";
+import icon1 from "../others/sort1.svg";
+import logout from "../others/logout1.svg";
+import mylogo from "../wallpapers/mylogo.png";
 import "../app.css";
-const TopBar = {
-  fontFamily: "Arial",
-  fontSize: "20px",
-  fontStyle: "normal",
-  color: "white",
-  backgroundColor: "#668964",
-  display: "grid",
-  gridTemplateColumns: "auto 50px 50px 30px",
-  height: "55px",
-  zIndex: "-1"
+const logocss = {
+  width: "80px",
 };
-
 export default class topbar extends Component {
   constructor() {
     super();
     this.state = {
-      clicked: false
+      clicked: false,
     };
   }
   render() {
     return (
-      <div style={TopBar}>
-        <div style={{ margin: "15px 0px 0px 50px" }}>WonderList</div>
+      <div className="topBar">
+        <div style={{ margin: "0px 0px 0px 70px" }}>
+          <img src={mylogo} alt="logo" style={logocss} />
+        </div>
         <div className="dropdown ">
           <div className="icons-div">
-            <img src={icon1} alt="icon12" className="icons" />
+            <img src={icon1} alt="sorticon" className="icons" />
           </div>
 
           <div className="dropdown-content ">
@@ -54,6 +48,7 @@ export default class topbar extends Component {
             src={logout}
             alt="icon12"
             className="icons"
+            style={{ height: "20px" }}
             onClick={this.props.signout}
           />
         </div>

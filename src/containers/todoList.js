@@ -15,18 +15,11 @@ export default class todoList extends Component {
       starred: this.props.starred,
       visible: false,
       x: 0,
-      y: 0
+      y: 0,
     };
   }
   showFunctionBar = () => {
-    this.props.showFunctionBar(
-      this.state.id,
-      this.state.value,
-      this.state.comment,
-      this.state.DefaultChecked,
-      this.state.date,
-      this.state.starred
-    );
+    this.props.showFunctionBar(this.state.id);
   };
 
   render() {
